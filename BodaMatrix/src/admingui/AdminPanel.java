@@ -87,8 +87,12 @@ public class AdminPanel {
 	}
 
 	private void OwnerInfo() {
+		String serach = searchUser.getText();
 		try {
-			ps = con.prepareStatement("SELECT * FROM owner");
+			// ps = con.prepareStatement("SELECT * FROM owner");
+			ps = con.prepareStatement(
+					"SELECT o.*FROM owner o INNER JOIN bike b ON o.idNumber = b.id INNER JOIN rider r ON b.plate = r.plate WHERE r.idNumber = ?");
+			ps.setString(1, serach);
 			rs = ps.executeQuery();
 			table_1.setModel(DbUtils.resultSetToTableModel(rs));
 		} catch (SQLException e) {
