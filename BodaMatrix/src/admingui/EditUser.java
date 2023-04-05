@@ -210,6 +210,7 @@ public class EditUser {
 		btnSave.setBounds(208, 466, 89, 23);
 		editUser.getContentPane().add(btnSave);
 		//editUser.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//
 		
 		
 	}

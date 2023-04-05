@@ -96,6 +96,8 @@ public class AddNewUser {
 		addNewUser.setTitle("Add new");
 		addNewUser.setBounds(100, 100, 1000, 546);
 		// addNewUser.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		//
 		addNewUser.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		addNewUser.getContentPane().setLayout(null);
 

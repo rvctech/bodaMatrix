@@ -36,6 +36,7 @@ import javax.swing.JScrollPane;
 
 //import org.openstreetmap.gui.jmapviewer.JMapViewer;
 //import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
+//
 public class AdminPanel {
 
 	private JFrame frmAdminPanel;
