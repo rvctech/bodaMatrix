@@ -5,8 +5,6 @@ import java.sql.*;
 
 import javax.swing.JFrame;
 import java.awt.Font;
-import java.awt.Panel;
-import java.awt.Window;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -14,24 +12,16 @@ import javax.swing.border.TitledBorder;
 
 import net.proteanit.sql.DbUtils;
 
-import javax.swing.JToolBar;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
-import java.awt.Component;
 
 import javax.swing.border.EtchedBorder;
 import javax.swing.JTable;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.nio.file.spi.FileTypeDetector;
 
-import javax.swing.JTextPane;
-import javax.swing.JLabel;
+import java.awt.event.KeyAdapter;
+
 import javax.swing.JScrollPane;
 
 //import org.openstreetmap.gui.jmapviewer.JMapViewer;
@@ -89,7 +79,7 @@ public class AdminPanel {
 	private void OwnerInfo() {
 		String serach = searchUser.getText();
 		try {
-			// ps = con.prepareStatement("SELECT * FROM owner");
+
 			ps = con.prepareStatement(
 					"SELECT o.*FROM owner o INNER JOIN bike b ON o.idNumber = b.id INNER JOIN rider r ON b.plate = r.plate WHERE r.idNumber = ?");
 			ps.setString(1, serach);
@@ -254,8 +244,11 @@ public class AdminPanel {
 		btnEditButton.setFont(new Font("Tahoma", Font.BOLD, 10));
 		btnEditButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String getUser = searchUser.getText();
 				EditUser eu = new EditUser();
+				eu.searchID.setText(getUser);
 				eu.editUser.setVisible(true);
+
 			}
 		});
 		btnEditButton.setBounds(99, 11, 89, 23);

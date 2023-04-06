@@ -1,7 +1,6 @@
 package admingui;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import java.awt.Font;
 import java.sql.Connection;
@@ -9,17 +8,15 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
-
-import net.proteanit.sql.DbUtils;
-
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import java.awt.Color;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class EditUser {
 
@@ -40,11 +37,12 @@ public class EditUser {
 	private JTextField rFirst;
 	private JTextField rLast;
 	private JTextField rPhone;
-	private JTextField rID;
+	public JTextField rID;
 	private JTextField rKRA;
 	private JTextField rAddress;
 	private JButton btnSave;
 	private JTextField bPlate;
+	public JTextField searchID;
 
 	/**
 	 * Launch the application.
@@ -55,6 +53,7 @@ public class EditUser {
 				try {
 					EditUser window = new EditUser();
 					window.editUser.setVisible(true);
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -66,9 +65,11 @@ public class EditUser {
 	 * Create the application.
 	 */
 	public EditUser() {
+
 		initialize();
 		Connect();
-		populateInformation();
+//		populateInformation();
+
 	}
 
 	// Mysql connection
@@ -88,39 +89,40 @@ public class EditUser {
 
 	}
 
-	public void populateInformation() {
-
-		try {
-
-			// Rider Information
-			ps = con.prepareStatement("SELECT * FROM rider WHERE idNumber = ?");
-			ps.setString(1, "45567890");
-			rs = ps.executeQuery();
-			if (rs.next()) {
-
-				String riderFirst = rs.getString("firstName");
-				String riderLast = rs.getString("lastName");
-				int riderPhone = rs.getInt(3);
-				int riderID = rs.getInt(4);
-				String riderKRA = rs.getString("kraPin");
-				String riderAddress = rs.getString("address");
-				String bikePlate = rs.getString("plate");
-				rFirst.setText(riderFirst);
-				rLast.setText(riderLast);
-				rPhone.setText(String.valueOf(riderPhone));
-				rID.setText(String.valueOf(riderID));
-				rKRA.setText(riderKRA);
-				rAddress.setText(riderAddress);
-				bPlate.setText(bikePlate);
-
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-
-		}
-
-	}
+//	public void populateInformation() {
+//
+////		try {
+////
+////			// Rider Information
+////
+////			ps = con.prepareStatement("SELECT * FROM rider WHERE idNumber = ?");
+////			ps.setString(1, "getID");
+////			rs = ps.executeQuery();
+////			if (rs.next()) {
+////
+////				String riderFirst = rs.getString("firstName");
+////				String riderLast = rs.getString("lastName");
+////				int riderPhone = rs.getInt(3);
+////				int riderID = rs.getInt(4);
+////				String riderKRA = rs.getString("kraPin");
+////				String riderAddress = rs.getString("address");
+////				String bikePlate = rs.getString("plate");
+////				rFirst.setText(riderFirst);
+////				rLast.setText(riderLast);
+////				rPhone.setText(String.valueOf(riderPhone));
+////				rID.setText(String.valueOf(riderID));
+////				rKRA.setText(riderKRA);
+////				rAddress.setText(riderAddress);
+////				bPlate.setText(bikePlate);
+////
+////			}
+////
+////		} catch (SQLException e) {
+////			e.printStackTrace();
+////
+////		}
+//
+//	}
 
 	/**
 	 * Initialize the contents of the frame.
@@ -139,7 +141,7 @@ public class EditUser {
 		addOwnerPanel.setLayout(null);
 		addOwnerPanel.setBorder(
 				new TitledBorder(null, "Owner Information", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		addOwnerPanel.setBounds(29, 22, 459, 192);
+		addOwnerPanel.setBounds(29, 48, 459, 192);
 		editUser.getContentPane().add(addOwnerPanel);
 
 		JLabel ownerFirstName = new JLabel("First name");
@@ -202,7 +204,7 @@ public class EditUser {
 		addRiderrPanel.setBorder(new TitledBorder(
 				new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)),
 				"Rider Information", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		addRiderrPanel.setBounds(29, 244, 459, 211);
+		addRiderrPanel.setBounds(29, 251, 459, 211);
 		editUser.getContentPane().add(addRiderrPanel);
 
 		riderFirstName = new JLabel("First name");
@@ -272,8 +274,55 @@ public class EditUser {
 		btnSave.setBackground(new Color(255, 255, 255));
 		btnSave.setForeground(new Color(0, 0, 0));
 		btnSave.setFont(new Font("Bodoni MT", Font.BOLD, 20));
-		btnSave.setBounds(208, 466, 89, 23);
+		btnSave.setBounds(211, 473, 89, 23);
 		editUser.getContentPane().add(btnSave);
+
+		searchID = new JTextField();
+		searchID.setBounds(20, 17, 371, 20);
+		editUser.getContentPane().add(searchID);
+		searchID.setColumns(10);
+
+		JButton searchIDButton = new JButton("Search");
+		searchIDButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				try {
+
+					// Rider Information
+					String getID = searchID.getText();
+					System.out.println(getID);
+					ps = con.prepareStatement("SELECT * FROM rider WHERE idNumber = ?");
+					ps.setString(1, getID);
+					rs = ps.executeQuery();
+					if (rs.next()) {
+
+						String riderFirst = rs.getString("firstName");
+						String riderLast = rs.getString("lastName");
+						int riderPhone = rs.getInt(3);
+						int riderID = rs.getInt(4);
+						String riderKRA = rs.getString("kraPin");
+						String riderAddress = rs.getString("address");
+						String bikePlate = rs.getString("plate");
+						rFirst.setText(riderFirst);
+						rLast.setText(riderLast);
+						rPhone.setText(String.valueOf(riderPhone));
+						rID.setText(String.valueOf(riderID));
+						rKRA.setText(riderKRA);
+						rAddress.setText(riderAddress);
+						bPlate.setText(bikePlate);
+
+					}
+
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+
+				}
+
+			}
+		});
+		searchIDButton.setFont(new Font("Bodoni MT", Font.BOLD, 20));
+		searchIDButton.setBounds(399, 14, 101, 23);
+		editUser.getContentPane().add(searchIDButton);
 		// editUser.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//
 
