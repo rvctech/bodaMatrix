@@ -89,41 +89,6 @@ public class EditUser {
 
 	}
 
-//	public void populateInformation() {
-//
-////		try {
-////
-////			// Rider Information
-////
-////			ps = con.prepareStatement("SELECT * FROM rider WHERE idNumber = ?");
-////			ps.setString(1, "getID");
-////			rs = ps.executeQuery();
-////			if (rs.next()) {
-////
-////				String riderFirst = rs.getString("firstName");
-////				String riderLast = rs.getString("lastName");
-////				int riderPhone = rs.getInt(3);
-////				int riderID = rs.getInt(4);
-////				String riderKRA = rs.getString("kraPin");
-////				String riderAddress = rs.getString("address");
-////				String bikePlate = rs.getString("plate");
-////				rFirst.setText(riderFirst);
-////				rLast.setText(riderLast);
-////				rPhone.setText(String.valueOf(riderPhone));
-////				rID.setText(String.valueOf(riderID));
-////				rKRA.setText(riderKRA);
-////				rAddress.setText(riderAddress);
-////				bPlate.setText(bikePlate);
-////
-////			}
-////
-////		} catch (SQLException e) {
-////			e.printStackTrace();
-////
-////		}
-//
-//	}
-
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -290,7 +255,7 @@ public class EditUser {
 
 					// Rider Information
 					String getID = searchID.getText();
-					System.out.println(getID);
+
 					ps = con.prepareStatement("SELECT * FROM rider WHERE idNumber = ?");
 					ps.setString(1, getID);
 					rs = ps.executeQuery();
@@ -310,6 +275,28 @@ public class EditUser {
 						rKRA.setText(riderKRA);
 						rAddress.setText(riderAddress);
 						bPlate.setText(bikePlate);
+
+						// Owners information
+						ps = con.prepareStatement(
+								"SELECT o.*FROM owner o INNER JOIN bike b ON o.idNumber = b.id INNER JOIN rider r ON b.plate = r.plate WHERE r.idNumber = ?");
+						ps.setString(1, getID);
+						rs = ps.executeQuery();
+						if (rs.next()) {
+							String ownerFirst = rs.getString("firstName");
+							String ownerLast = rs.getString("lastName");
+							int ownerPhone = rs.getInt(3);
+							int ownerID = rs.getInt(4);
+							String ownerKRA = rs.getString("kraPin");
+							String ownerAddress = rs.getString("address");
+
+							oFirst.setText(ownerFirst);
+							oLast.setText(ownerLast);
+							oPhone.setText(String.valueOf(ownerPhone));
+							oID.setText(String.valueOf(ownerID));
+							oKRA.setText(ownerKRA);
+							oAddress.setText(ownerAddress);
+
+						}
 
 					}
 
