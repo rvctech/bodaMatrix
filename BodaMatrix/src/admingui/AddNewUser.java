@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 
 import javax.swing.border.TitledBorder;
 
+import net.proteanit.sql.DbUtils;
+
 import javax.swing.border.EtchedBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -96,7 +98,7 @@ public class AddNewUser {
 		addNewUser.setTitle("Add new");
 		addNewUser.setBounds(100, 100, 1000, 546);
 		// addNewUser.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		//
 		addNewUser.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		addNewUser.getContentPane().setLayout(null);
@@ -239,10 +241,31 @@ public class AddNewUser {
 						|| chasis.getText().equals("") || plateNo.getText().equals("") || year.getText().equals("")
 						|| fuel.getText().equals("")) {
 					JOptionPane.showMessageDialog(null, "Please fill in ithe complete form");
-				} else {
+
+				}
+
+				else {
 					insertInformation();
 
 				}
+			}
+
+			private String checkOwner(int ownerID) {
+				try {
+
+					ps = con.prepareStatement("SELECT * FROM owner WHERE idNumber = ?");
+					ps.setInt(1, ownerID);
+					rs = ps.executeQuery();
+					if (rs.next()) {
+						String ownerFirst = rs.getString("firstName");
+						String ownerLast = rs.getString("lastName");
+					}
+
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+				return "ID located";
+
 			}
 
 			private void insertInformation() {
@@ -277,15 +300,46 @@ public class AddNewUser {
 				bikeYear = Integer.parseInt(year.getText());
 
 				try {
-					ps = con.prepareStatement(
-							"INSERT INTO owner(firstName,lastName,phone,idNumber,kraPin,address)VALUES(?,?,?,?,?,?)");
-					ps.setString(1, ownerFirst);
-					ps.setString(2, ownerLast);
-					ps.setInt(3, ownerPhone);
-					ps.setInt(4, ownerID);
-					ps.setString(5, ownerKRA);
-					ps.setString(6, ownerAddress);
-					ps.executeUpdate();
+
+					// Check if the owner exists in the database
+					if (checkOwner(ownerID).equals("ID located")) {
+						ps = con.prepareStatement(
+								"INSERT INTO bike(make,model,cc,chasis,plate,manufacture,fuel,id)VALUES(?,?,?,?,?,?,?,?)");
+						ps.setString(1, bikeMake);
+						ps.setString(2, bikeModel);
+						ps.setInt(3, bikecc);
+						ps.setString(4, bikeChasis);
+						ps.setString(5, bikePlate);
+						ps.setInt(6, bikeYear);
+						ps.setString(7, bikeFuel);
+						ps.setInt(8, ownerID);
+						ps.executeUpdate();
+
+						ps = con.prepareStatement(
+								"INSERT INTO rider(firstName,lastName,phone,idNumber,kraPin,address,plate)VALUES(?,?,?,?,?,?,?)");
+						ps.setString(1, riderFirst);
+						ps.setString(2, riderLast);
+						ps.setInt(3, riderPhone);
+						ps.setInt(4, riderID);
+						ps.setString(5, riderKRA);
+						ps.setString(6, riderAddress);
+						ps.setString(7, bikePlate);
+						ps.executeUpdate();
+
+						JOptionPane.showMessageDialog(null, "Successfully Added");
+
+					} else {
+
+						ps = con.prepareStatement(
+								"INSERT INTO owner(firstName,lastName,phone,idNumber,kraPin,address)VALUES(?,?,?,?,?,?)");
+						ps.setString(1, ownerFirst);
+						ps.setString(2, ownerLast);
+						ps.setInt(3, ownerPhone);
+						ps.setInt(4, ownerID);
+						ps.setString(5, ownerKRA);
+						ps.setString(6, ownerAddress);
+						ps.executeUpdate();
+					}
 
 					ps = con.prepareStatement(
 							"INSERT INTO bike(make,model,cc,chasis,plate,manufacture,fuel,id)VALUES(?,?,?,?,?,?,?,?)");
