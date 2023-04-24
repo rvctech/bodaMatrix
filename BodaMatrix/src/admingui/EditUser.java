@@ -278,20 +278,83 @@ public class EditUser {
 		btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int ownerID = Integer.parseInt(oID.getText());
-				int riderID = Integer.parseInt(rID.getText());
 
-				if (checkOwner(ownerID).equals("ID located")) {
-					JOptionPane.showMessageDialog(null, "Owner Exists");
-				} else if (checkOwner(ownerID).equals("ID Not locates")) {
-					JOptionPane.showMessageDialog(null, "Owner Does not Exist");
-				} else if (checkRider(riderID).equals("ID located")) {
-					JOptionPane.showMessageDialog(null, "Rider Exists");
-				} else if (checkOwner(ownerID).equals("ID Not located")
-						&& checkRider(riderID).equals("ID Not located")) {
-					JOptionPane.showMessageDialog(null, "Owner and Rider do not exist");
-				} else {
-					JOptionPane.showMessageDialog(null, "Rider Does Not Exists");
+				String ownerFirst, ownerLast, ownerKRA, ownerAddress, riderFirst, riderLast, riderAddress, bikePlate,
+						riderKRA;
+
+				int ownerPhone, ownerID, riderPhone, riderID;
+//				int ownerID = Integer.parseInt(oID.getText());
+				// int riderID = Integer.parseInt(rID.getText());
+
+				ownerFirst = oFirst.getText();
+				ownerLast = oLast.getText();
+				ownerPhone = Integer.parseInt(oPhone.getText());
+				ownerID = Integer.parseInt(oID.getText());
+				ownerKRA = oKRA.getText();
+				ownerAddress = oAddress.getText();
+
+				// Get riders information from text entered
+				riderFirst = rFirst.getText();
+				riderLast = rLast.getText();
+				riderPhone = Integer.parseInt(rPhone.getText());
+				riderID = Integer.parseInt(rID.getText());
+				riderKRA = rKRA.getText();
+				riderAddress = rAddress.getText();
+				bikePlate = bPlate.getText();
+
+				// If owner and rider exists then message will show that the information already
+				// exists
+
+				if (checkOwner(ownerID).equals("ID located") && checkRider(riderID).equals("ID located")) {
+					JOptionPane.showMessageDialog(null, "Owner and Rider Already Exist");
+
+					// If owner exists and the rider does not exist then add the rider information
+				} else if (checkOwner(ownerID).equals("ID located") && checkRider(riderID).equals("ID Not located")) {
+					try {
+						PreparedStatement ps = con.prepareStatement(
+								"UPDATE rider SET firstName=?, lastName=?, phone=?, idNumber=?, kraPin=?, address=? WHERE plate=?");
+						ps.setString(1, riderFirst);
+						ps.setString(2, riderLast);
+						ps.setInt(3, riderPhone);
+						ps.setInt(4, riderID);
+						ps.setString(5, riderKRA);
+						ps.setString(6, riderAddress);
+						ps.setString(7, bikePlate);
+						ps.executeUpdate();
+						JOptionPane.showMessageDialog(null, "Rider Information Updated!");
+
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					// checks id the rider exists and the owner does not exists, then add the new
+					// owner
+				} else if (checkOwner(ownerID).equals("ID Not located") && checkRider(riderID).equals("ID located")) {
+
+					try {
+						// Insert the new owner into the Owner table
+						PreparedStatement ps = con.prepareStatement(
+								"INSERT INTO owner (firstName, lastName, phone, idNumber, kraPin, address) VALUES (?, ?, ?, ?, ?, ?)");
+						ps.setString(1, ownerFirst);
+						ps.setString(2, ownerLast);
+						ps.setInt(3, ownerPhone);
+						ps.setInt(4, ownerID);
+						ps.setString(5, ownerKRA);
+						ps.setString(6, ownerAddress);
+						ps.executeUpdate();
+
+						// Update the Bike table with the new owner's ID as the foreign key
+						PreparedStatement ps3 = con.prepareStatement("UPDATE bike SET id = ? WHERE plate = ?");
+						ps3.setInt(1, ownerID);
+						ps3.setString(2, bikePlate);
+						ps3.executeUpdate();
+						JOptionPane.showMessageDialog(null, "Owner Information Updated!");
+						
+
+					} catch (SQLException ex) {
+						ex.printStackTrace();
+					}
+
 				}
 
 			}
