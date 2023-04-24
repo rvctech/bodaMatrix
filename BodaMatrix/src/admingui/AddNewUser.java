@@ -240,7 +240,7 @@ public class AddNewUser {
 						|| make.getText().equals("") || model.getText().equals("") || cc.getText().equals("")
 						|| chasis.getText().equals("") || plateNo.getText().equals("") || year.getText().equals("")
 						|| fuel.getText().equals("")) {
-					JOptionPane.showMessageDialog(null, "Please fill in ithe complete form");
+					JOptionPane.showMessageDialog(null, "Please fill in the complete form");
 
 				}
 
@@ -250,6 +250,7 @@ public class AddNewUser {
 				}
 			}
 
+			// Check if owner exists in the database
 			private String checkOwner(int ownerID) {
 				try {
 
@@ -257,8 +258,8 @@ public class AddNewUser {
 					ps.setInt(1, ownerID);
 					rs = ps.executeQuery();
 					if (rs.next()) {
-						String ownerFirst = rs.getString("firstName");
-						String ownerLast = rs.getString("lastName");
+//						String ownerFirst = rs.getString("firstName");
+//						String ownerLast = rs.getString("lastName");
 					}
 
 				} catch (SQLException ex) {
@@ -301,7 +302,8 @@ public class AddNewUser {
 
 				try {
 
-					// Check if the owner exists in the database
+					// If the owner exists in the database then add bike and rider information
+
 					if (checkOwner(ownerID).equals("ID located")) {
 						ps = con.prepareStatement(
 								"INSERT INTO bike(make,model,cc,chasis,plate,manufacture,fuel,id)VALUES(?,?,?,?,?,?,?,?)");
@@ -330,6 +332,8 @@ public class AddNewUser {
 
 					} else {
 
+						// If owner doesn't exist then add the owner, rider and bike information
+
 						ps = con.prepareStatement(
 								"INSERT INTO owner(firstName,lastName,phone,idNumber,kraPin,address)VALUES(?,?,?,?,?,?)");
 						ps.setString(1, ownerFirst);
@@ -339,33 +343,33 @@ public class AddNewUser {
 						ps.setString(5, ownerKRA);
 						ps.setString(6, ownerAddress);
 						ps.executeUpdate();
+
+						ps = con.prepareStatement(
+								"INSERT INTO bike(make,model,cc,chasis,plate,manufacture,fuel,id)VALUES(?,?,?,?,?,?,?,?)");
+						ps.setString(1, bikeMake);
+						ps.setString(2, bikeModel);
+						ps.setInt(3, bikecc);
+						ps.setString(4, bikeChasis);
+						ps.setString(5, bikePlate);
+						ps.setInt(6, bikeYear);
+						ps.setString(7, bikeFuel);
+						ps.setInt(8, ownerID);
+						ps.executeUpdate();
+
+						ps = con.prepareStatement(
+								"INSERT INTO rider(firstName,lastName,phone,idNumber,kraPin,address,plate)VALUES(?,?,?,?,?,?,?)");
+						ps.setString(1, riderFirst);
+						ps.setString(2, riderLast);
+						ps.setInt(3, riderPhone);
+						ps.setInt(4, riderID);
+						ps.setString(5, riderKRA);
+						ps.setString(6, riderAddress);
+						ps.setString(7, bikePlate);
+						ps.executeUpdate();
+
+						JOptionPane.showMessageDialog(null, "Successfully Added");
+
 					}
-
-					ps = con.prepareStatement(
-							"INSERT INTO bike(make,model,cc,chasis,plate,manufacture,fuel,id)VALUES(?,?,?,?,?,?,?,?)");
-					ps.setString(1, bikeMake);
-					ps.setString(2, bikeModel);
-					ps.setInt(3, bikecc);
-					ps.setString(4, bikeChasis);
-					ps.setString(5, bikePlate);
-					ps.setInt(6, bikeYear);
-					ps.setString(7, bikeFuel);
-					ps.setInt(8, ownerID);
-					ps.executeUpdate();
-
-					ps = con.prepareStatement(
-							"INSERT INTO rider(firstName,lastName,phone,idNumber,kraPin,address,plate)VALUES(?,?,?,?,?,?,?)");
-					ps.setString(1, riderFirst);
-					ps.setString(2, riderLast);
-					ps.setInt(3, riderPhone);
-					ps.setInt(4, riderID);
-					ps.setString(5, riderKRA);
-					ps.setString(6, riderAddress);
-					ps.setString(7, bikePlate);
-					ps.executeUpdate();
-
-					JOptionPane.showMessageDialog(null, "Successfully Added");
-
 				} catch (Exception e) {
 					System.out.println(e);
 				}

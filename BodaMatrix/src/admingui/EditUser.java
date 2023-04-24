@@ -11,11 +11,13 @@ import java.sql.SQLException;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.lang.StackWalker.Option;
 import java.awt.event.ActionEvent;
 
 public class EditUser {
@@ -86,6 +88,44 @@ public class EditUser {
 		} catch (SQLException ex) {
 
 		}
+
+	}
+
+// Check if owner exists in the databse
+	private String checkOwner(int ownerID) {
+
+		try {
+
+			ps = con.prepareStatement("SELECT * FROM owner WHERE idNumber = ?");
+			ps.setInt(1, ownerID);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				return "ID located";
+
+			}
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return "ID Not located";
+	}
+
+//Checks if rider exists in the database
+	private String checkRider(int riderID) {
+		try {
+
+			ps = con.prepareStatement("SELECT * FROM rider WHERE idNumber = ?");
+			ps.setInt(1, riderID);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				return "ID located";
+
+			}
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return "ID Not located";
 
 	}
 
@@ -236,6 +276,27 @@ public class EditUser {
 		addRiderrPanel.add(bPlate);
 
 		btnSave = new JButton("Save");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int ownerID = Integer.parseInt(oID.getText());
+				int riderID = Integer.parseInt(rID.getText());
+
+				if (checkOwner(ownerID).equals("ID located")) {
+					JOptionPane.showMessageDialog(null, "Owner Exists");
+				} else if (checkOwner(ownerID).equals("ID Not locates")) {
+					JOptionPane.showMessageDialog(null, "Owner Does not Exist");
+				} else if (checkRider(riderID).equals("ID located")) {
+					JOptionPane.showMessageDialog(null, "Rider Exists");
+				} else if (checkOwner(ownerID).equals("ID Not located")
+						&& checkRider(riderID).equals("ID Not located")) {
+					JOptionPane.showMessageDialog(null, "Owner and Rider do not exist");
+				} else {
+					JOptionPane.showMessageDialog(null, "Rider Does Not Exists");
+				}
+
+			}
+		});
+
 		btnSave.setBackground(new Color(255, 255, 255));
 		btnSave.setForeground(new Color(0, 0, 0));
 		btnSave.setFont(new Font("Bodoni MT", Font.BOLD, 20));
@@ -311,7 +372,6 @@ public class EditUser {
 		searchIDButton.setBounds(399, 14, 101, 23);
 		editUser.getContentPane().add(searchIDButton);
 		// editUser.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//
 
 	}
 }
