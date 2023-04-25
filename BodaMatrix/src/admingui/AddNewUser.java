@@ -89,6 +89,26 @@ public class AddNewUser {
 
 	}
 
+	// Check if owner exists in the database
+	private String checkOwner(int ownerID) {
+		try {
+
+			ps = con.prepareStatement("SELECT * FROM owner WHERE idNumber = ?");
+			ps.setInt(1, ownerID);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				return "ID located";
+//				String ownerFirst = rs.getString("firstName");
+//				String ownerLast = rs.getString("lastName");
+			}
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return "ID Not located";
+
+	}
+
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -250,24 +270,25 @@ public class AddNewUser {
 				}
 			}
 
-			// Check if owner exists in the database
-			private String checkOwner(int ownerID) {
-				try {
-
-					ps = con.prepareStatement("SELECT * FROM owner WHERE idNumber = ?");
-					ps.setInt(1, ownerID);
-					rs = ps.executeQuery();
-					if (rs.next()) {
-//						String ownerFirst = rs.getString("firstName");
-//						String ownerLast = rs.getString("lastName");
-					}
-
-				} catch (SQLException ex) {
-					ex.printStackTrace();
-				}
-				return "ID located";
-
-			}
+//			// Check if owner exists in the database
+//			private String checkOwner(int ownerID) {
+//				try {
+//
+//					ps = con.prepareStatement("SELECT * FROM owner WHERE idNumber = ?");
+//					ps.setInt(1, ownerID);
+//					rs = ps.executeQuery();
+//					if (rs.next()) {
+//						return "ID located";
+////						String ownerFirst = rs.getString("firstName");
+////						String ownerLast = rs.getString("lastName");
+//					}
+//
+//				} catch (SQLException ex) {
+//					ex.printStackTrace();
+//				}
+//				return "ID Not located";
+//
+//			}
 
 			private void insertInformation() {
 				String ownerFirst, ownerLast, ownerKRA, ownerAddress, riderFirst, riderLast, riderAddress, bikePlate,
@@ -328,7 +349,7 @@ public class AddNewUser {
 						ps.setString(7, bikePlate);
 						ps.executeUpdate();
 
-						JOptionPane.showMessageDialog(null, "Successfully Added");
+						JOptionPane.showMessageDialog(null, "Rider and Bike Successfully Added");
 
 					} else {
 
@@ -367,7 +388,7 @@ public class AddNewUser {
 						ps.setString(7, bikePlate);
 						ps.executeUpdate();
 
-						JOptionPane.showMessageDialog(null, "Successfully Added");
+						JOptionPane.showMessageDialog(null, "Information Successfully Added");
 
 					}
 				} catch (Exception e) {

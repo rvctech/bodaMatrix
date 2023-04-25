@@ -349,7 +349,43 @@ public class EditUser {
 						ps3.setString(2, bikePlate);
 						ps3.executeUpdate();
 						JOptionPane.showMessageDialog(null, "Owner Information Updated!");
-						
+
+					} catch (SQLException ex) {
+						ex.printStackTrace();
+					}
+
+				} else if (checkOwner(ownerID).equals("ID Not located")
+						&& checkRider(riderID).equals("ID Not located")) {
+					try {
+						// Insert the new owner into the Owner table
+						PreparedStatement ps = con.prepareStatement(
+								"INSERT INTO owner (firstName, lastName, phone, idNumber, kraPin, address) VALUES (?, ?, ?, ?, ?, ?)");
+						ps.setString(1, ownerFirst);
+						ps.setString(2, ownerLast);
+						ps.setInt(3, ownerPhone);
+						ps.setInt(4, ownerID);
+						ps.setString(5, ownerKRA);
+						ps.setString(6, ownerAddress);
+						ps.executeUpdate();
+
+						// Update the Bike table with the new owner's ID as the foreign key
+						PreparedStatement ps3 = con.prepareStatement("UPDATE bike SET id = ? WHERE plate = ?");
+						ps3.setInt(1, ownerID);
+						ps3.setString(2, bikePlate);
+						ps3.executeUpdate();
+
+						// Update the Rider table with new rider
+						ps = con.prepareStatement(
+								"INSERT INTO rider(firstName,lastName,phone,idNumber,kraPin,address,plate)VALUES(?,?,?,?,?,?,?)");
+						ps.setString(1, riderFirst);
+						ps.setString(2, riderLast);
+						ps.setInt(3, riderPhone);
+						ps.setInt(4, riderID);
+						ps.setString(5, riderKRA);
+						ps.setString(6, riderAddress);
+						ps.setString(7, bikePlate);
+						ps.executeUpdate();
+						JOptionPane.showMessageDialog(null, "Owner and Rider Information Updated!");
 
 					} catch (SQLException ex) {
 						ex.printStackTrace();
