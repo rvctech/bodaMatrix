@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 import java.sql.*;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 
 import javax.swing.JPanel;
@@ -24,8 +26,14 @@ import java.awt.event.KeyAdapter;
 
 import javax.swing.JScrollPane;
 
-//import org.openstreetmap.gui.jmapviewer.JMapViewer;
-//import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
+// Google Map Libraries
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+
+import javax.swing.*;
 //
 public class AdminPanel {
 
@@ -255,6 +263,12 @@ public class AdminPanel {
 		panel_3.add(btnEditButton);
 
 		JButton btnDeleteButton = new JButton("Delete");
+		btnDeleteButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				JOptionPane.showMessageDialog(null, "Do we really need the delete option?");
+			}
+		});
 		btnDeleteButton.setForeground(new Color(0, 0, 0));
 		btnDeleteButton.setBackground(new Color(255, 255, 255));
 		btnDeleteButton.setFont(new Font("Tahoma", Font.BOLD, 10));
