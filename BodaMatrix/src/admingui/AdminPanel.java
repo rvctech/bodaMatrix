@@ -1,6 +1,7 @@
 package admingui;
 
 import java.awt.EventQueue;
+
 import java.sql.*;
 
 import javax.swing.JFrame;
@@ -14,9 +15,11 @@ import javax.swing.border.TitledBorder;
 
 import net.proteanit.sql.DbUtils;
 
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.BorderLayout;
 import java.awt.Color;
 
 import javax.swing.border.EtchedBorder;
@@ -25,15 +28,12 @@ import javax.swing.JTable;
 import java.awt.event.KeyAdapter;
 
 import javax.swing.JScrollPane;
+import java.awt.SystemColor;
+
 
 // Google Map Libraries
-import javafx.embed.swing.JFXPanel;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
 
-import javax.swing.*;
+
 //
 public class AdminPanel {
 
@@ -122,27 +122,27 @@ public class AdminPanel {
 	 */
 	private void initialize() {
 		frmAdminPanel = new JFrame();
-		frmAdminPanel.getContentPane().setBackground(new Color(255, 255, 255));
+		frmAdminPanel.getContentPane().setBackground(SystemColor.info);
 		frmAdminPanel.setFont(new Font("Bodoni MT", Font.PLAIN, 15));
 		frmAdminPanel.setTitle("Admin Panel");
 		frmAdminPanel.setBounds(100, 100, 1420, 1000);
 		frmAdminPanel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmAdminPanel.getContentPane().setLayout(null);
 
-		JPanel SearchPanel = new JPanel();
-		SearchPanel.setBackground(new Color(255, 255, 255));
-		SearchPanel.setBorder(new TitledBorder(
+		JPanel searchPanel = new JPanel();
+		searchPanel.setBackground(SystemColor.info);
+		searchPanel.setBorder(new TitledBorder(
 				new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)),
 				"Search Panel", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 139, 139)));
-		SearchPanel.setBounds(20, 57, 323, 189);
-		frmAdminPanel.getContentPane().add(SearchPanel);
-		SearchPanel.setLayout(null);
+		searchPanel.setBounds(20, 57, 323, 189);
+		frmAdminPanel.getContentPane().add(searchPanel);
+		searchPanel.setLayout(null);
 
 		searchUser = new JTextField();
 		searchUser.setToolTipText("Enter ID/plate number");
 		searchUser.setFont(new Font("Bodoni MT", Font.PLAIN, 15));
 		searchUser.setBounds(10, 22, 286, 42);
-		SearchPanel.add(searchUser);
+		searchPanel.add(searchUser);
 		searchUser.setColumns(10);
 
 		JButton seacrhButton = new JButton("Search");
@@ -159,7 +159,7 @@ public class AdminPanel {
 
 		});
 		seacrhButton.setBounds(50, 91, 101, 23);
-		SearchPanel.add(seacrhButton);
+		searchPanel.add(seacrhButton);
 
 		JButton btnClear = new JButton("Clear");
 		btnClear.setBackground(new Color(255, 255, 255));
@@ -174,22 +174,22 @@ public class AdminPanel {
 		btnClear.setForeground(new Color(0, 0, 0));
 		btnClear.setFont(new Font("Bodoni MT", Font.BOLD, 20));
 		btnClear.setBounds(176, 91, 89, 23);
-		SearchPanel.add(btnClear);
+		searchPanel.add(btnClear);
 
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.WHITE);
-		panel.setBorder(new TitledBorder(
+		JPanel informationPanel = new JPanel();
+		informationPanel.setBackground(Color.WHITE);
+		informationPanel.setBorder(new TitledBorder(
 				new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)),
 				"Information", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 139, 139)));
-		panel.setBounds(353, 57, 1025, 189);
-		frmAdminPanel.getContentPane().add(panel);
-		panel.setLayout(null);
+		informationPanel.setBounds(353, 57, 1025, 189);
+		frmAdminPanel.getContentPane().add(informationPanel);
+		informationPanel.setLayout(null);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(175, 238, 238));
 		panel_1.setBorder(new TitledBorder(null, "Rider", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_1.setBounds(10, 23, 519, 155);
-		panel.add(panel_1);
+		informationPanel.add(panel_1);
 		panel_1.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -205,7 +205,7 @@ public class AdminPanel {
 				new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Owner",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_1_1.setBounds(539, 23, 476, 155);
-		panel.add(panel_1_1);
+		informationPanel.add(panel_1_1);
 		panel_1_1.setLayout(null);
 
 		JScrollPane scrollPane_1 = new JScrollPane();
@@ -215,19 +215,11 @@ public class AdminPanel {
 		table_1 = new JTable();
 		scrollPane_1.setColumnHeaderView(table_1);
 
-		JPanel panel_2 = new JPanel();
-		panel_2.setBorder(new TitledBorder(
-				new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Location",
-				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 139, 139)));
-		panel_2.setBounds(20, 257, 1358, 652);
-		frmAdminPanel.getContentPane().add(panel_2);
-		panel_2.setLayout(null);
-
-		JPanel panel_3 = new JPanel();
-		panel_3.setBackground(Color.WHITE);
-		panel_3.setBounds(20, 0, 323, 44);
-		frmAdminPanel.getContentPane().add(panel_3);
-		panel_3.setLayout(null);
+		JPanel optionPanel = new JPanel();
+		optionPanel.setBackground(SystemColor.info);
+		optionPanel.setBounds(20, 0, 323, 44);
+		frmAdminPanel.getContentPane().add(optionPanel);
+		optionPanel.setLayout(null);
 
 		JButton btnAddButton = new JButton("Add");
 		btnAddButton.setForeground(new Color(0, 0, 0));
@@ -244,7 +236,7 @@ public class AdminPanel {
 			}
 		});
 		btnAddButton.setBounds(0, 11, 89, 23);
-		panel_3.add(btnAddButton);
+		optionPanel.add(btnAddButton);
 
 		JButton btnEditButton = new JButton("Edit");
 		btnEditButton.setForeground(new Color(0, 0, 0));
@@ -260,7 +252,7 @@ public class AdminPanel {
 			}
 		});
 		btnEditButton.setBounds(99, 11, 89, 23);
-		panel_3.add(btnEditButton);
+		optionPanel.add(btnEditButton);
 
 		JButton btnDeleteButton = new JButton("Delete");
 		btnDeleteButton.addActionListener(new ActionListener() {
@@ -273,6 +265,26 @@ public class AdminPanel {
 		btnDeleteButton.setBackground(new Color(255, 255, 255));
 		btnDeleteButton.setFont(new Font("Tahoma", Font.BOLD, 10));
 		btnDeleteButton.setBounds(198, 11, 89, 23);
-		panel_3.add(btnDeleteButton);
+		optionPanel.add(btnDeleteButton);
+	
+		
+////////////////////////////////////////////////////////////////
+		JPanel locationPanel = new JPanel();
+		locationPanel.setBorder(new TitledBorder(null, "Location", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		locationPanel.setBounds(20, 262, 1358, 683);
+		frmAdminPanel.getContentPane().add(locationPanel, BorderLayout.CENTER);
+		locationPanel.setLayout(new BorderLayout(0, 0));
+		
+		GoogleMapsExample gme = new GoogleMapsExample();
+		locationPanel.add(gme);
+
+
+
+
+
+
+
+
+/////////////////////////////////////////////////////////
 	}
 }
