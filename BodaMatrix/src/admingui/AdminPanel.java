@@ -269,6 +269,11 @@ public class AdminPanel {
 	
 		
 ////////////////////////////////////////////////////////////////
+		
+		/*Panel that displays google maps
+		 * */
+		
+		
 		JPanel locationPanel = new JPanel();
 		locationPanel.setBorder(new TitledBorder(null, "Location", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		locationPanel.setBounds(20, 262, 1358, 683);
@@ -277,11 +282,6 @@ public class AdminPanel {
 		
 		GoogleMapsExample gme = new GoogleMapsExample();
 		locationPanel.add(gme);
-
-
-
-
-
 
 
 
