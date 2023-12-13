@@ -40,6 +40,7 @@ The information is stored is critical because when it comes to any legal issues 
 1. When the system is running and you need to add new users ie rider, owner, and boda boda, just click the add button.
 2. A new window will appear where you have to input the necessary information. The window is as shown.
 <img width="765" alt="Screenshot 2023-12-13 112758" src="https://github.com/rvctech/bodaMatrix/assets/48275650/f34a9e9a-c519-495a-9127-02475c11fff9">
+
 3. Press the submit button to save the information.
 
 ### Edit users
