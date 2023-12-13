@@ -38,6 +38,13 @@ The information is stored is critical because when it comes to any legal issues 
 1. When the system is running and you need to add new users ie rider, owner, and boda boda, just click the add button.
 2. A new window will appear where you have to input the necessary information. The window is as shown.
 <img width="765" alt="Screenshot 2023-12-13 112758" src="https://github.com/rvctech/bodaMatrix/assets/48275650/f34a9e9a-c519-495a-9127-02475c11fff9">
+3. Press the submit button to save the information.
+
+### Edit users
+1. This option is allowed when there is a transfer of ownership, or when the rider is being substituted. The boda boda information CANNOT be changed as per Kenyan law. 
+2. When the system is running, you need to search the boda boda first to get the information of the rider, owner, and the boda boda.
+3. When you press the edit button, a window should appear where you need to edit the necessary details of the  owner, rider, or both.
+4. Press the save button to save the information. The window is as shown
 
 
 
