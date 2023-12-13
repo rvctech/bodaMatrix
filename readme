@@ -1,16 +1,42 @@
 # Project Title
 Boda Boda Tracking System
 
+##Terms
+Boda boda - motocycle
+Rider - the motorcycle user
+Owner - the person who owns the motorcycle, this could be the rider himself or another person
+
 ## Description
 This repository contains the code for a real-time GPS tracking system implemented in Java. The system is designed to track the location of the boda boda in real-time.
 
 ## Features
 - **Real-time tracking**: The system can track the location of boda boda in real-time.
-
 Real-time tracking: It provides the ability to track the location of the boda boda in real-time, which is crucial for logistics, fleet management, and security purposes.
+
+- **Storing information of the rider, owner and the boda boda**: The system stores the information of the rider of the bike, the boda boda details and the owner's information as well.
+The information is stored is critical because when it comes to any legal issues it easier to get the necessary information.
 
 
 ## Usage
+
+### Setting up the system
+1. Clone the repository to your local machine.
+2. Install the required dependencies.
+3. Set up the database with the necessary tables.
+
+### Running the system
+1. Start the server by running the mysql database server first and then the main Java file.
+2. The system will start the interface as shown.
+
+
+
+
+### Tracking the boda boda and necessary data
+1. You can access the current location of a boda boda by searching the id of either the owner or the rider.
+2. This will give you the information of the rider, the owner and the location of the boda boda
+
+
+
 
 
 
