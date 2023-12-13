@@ -25,15 +25,18 @@ The information is stored is critical because when it comes to any legal issues 
 3. Set up the database with the necessary tables.
 
 ### Running the system
-1. Start the server by running the mysql database server first and then the main Java file.
+1. Start the server by running the MySQL database server first and then the main Java file.
 2. The system will start the interface as shown.
 <img width="1082" alt="Screenshot 2023-12-13 112311" src="https://github.com/rvctech/bodaMatrix/assets/48275650/46e93986-f324-4fec-8aac-d1b0e5edc98f">
 
 ### Tracking the boda boda and necessary data
 1. You can access the current location of a boda boda by searching the id of either the owner or the rider.
-2. This will give you the information of the rider, the owner and the location of the boda boda as shown.
+2. This will give you the information of the rider, the owner, and the location of the boda boda as shown.
 <img width="1067" alt="Screenshot 2023-12-13 112704" src="https://github.com/rvctech/bodaMatrix/assets/48275650/da9ab20a-508c-44a6-ba0f-693be9aa9c5d">
 
+### Adding new users
+1. When the system is running and you need to add new users ie rider, owner, and boda boda, just click the add button.
+2. A new window will appear where you have to input the necessary information. The window is as shown.
 
 
 
