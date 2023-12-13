@@ -54,7 +54,25 @@ The information is stored is critical because when it comes to any legal issues 
 
 
 ## Contributing
+We welcome contributions to the Real-Time GPS Tracking System! Here's how you can contribute:
 
+1. **Fork the Repository**: Start by forking the repository to your own GitHub account.
+
+2. **Clone the Repository**: Clone the forked repository to your local machine.
+
+3. **Create a New Branch**: Always create a new branch for your changes. This keeps the project history clean and makes it easier to manage your changes.
+
+4. **Make Your Changes**: Make your changes in the new branch. Be sure to follow the project's coding style and conventions.
+
+5. **Commit Your Changes**: Commit your changes regularly with clear, concise commit messages.
+
+6. **Push Your Changes**: Push your changes to your forked repository on GitHub.
+
+7. **Submit a Pull Request**: Finally, submit a pull request from your forked repository to the main repository. Be sure to provide a clear description of the changes in your pull request.
+
+Before submitting a pull request, please ensure your code adheres to our coding standards and passes all tests.
+
+Thank you for considering contributing to the Real-Time GPS Tracking System!
 
 
 ## Credits
