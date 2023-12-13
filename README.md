@@ -83,12 +83,7 @@ We also want to acknowledge the open-source libraries and tools used in this pro
 - **Java**: The main programming language used for development.
 - **MySQL**: The database used for storing and retrieving location data.
 - **jxmaps**: The library used for displaying the map and location of the rider.
-- - **MySQL connector**: The library used for connecting the java application to the database.
+- **MySQL connector**: The library used for connecting the java application to the database.
 
 If you have any questions or suggestions, feel free to open an issue or submit a pull request.
-
-
-
-## License
-
 
