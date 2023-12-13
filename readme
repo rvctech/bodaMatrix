@@ -7,7 +7,7 @@ Rider - the motorcycle user
 Owner - the person who owns the motorcycle, this could be the rider himself or another person
 
 ## Description
-This repository contains the code for a real-time GPS tracking system implemented in Java. The system is designed to track the location of the boda boda in real-time.
+This repository contains the code for a real-time GPS tracking system implemented in Java. The system is designed to track the location of the boda boda in real-time, as well as store information the the rider, owner, and boda boda.
 
 ## Features
 - **Real-time tracking**: The system can track the location of boda boda in real-time.
