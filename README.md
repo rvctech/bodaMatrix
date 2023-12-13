@@ -4,7 +4,7 @@
 ## Terms
 Boda boda - motocycle
 
-Rider - the motorcycle user
+Rider - the person who rides the motorcycle
 
 Owner - the person who owns the motorcycle, this could be the rider himself or another person
 
